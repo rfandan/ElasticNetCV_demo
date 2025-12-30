@@ -1,0 +1,40 @@
+LOCAL GIT WORKFLOW - Cheat Sheet (Solo Practice)
+
+# 1. Initialize repository
+git init
+
+# 2. Check status of files
+git status
+
+# 3. Stage files for commit
+git add .          # stage all files
+git add filename   # stage specific file
+
+# 4. Commit changes
+git commit -m "Commit message"
+
+# 5. Create and switch branches
+git branch new-branch          # create branch
+git checkout new-branch        # switch branch
+git checkout -b new-branch     # create & switch in one step
+
+# 6. Merge branches
+git checkout main
+git merge new-branch
+
+# 7. View commit history
+git log --oneline --graph --all
+
+# 8. Delete a branch
+git branch -d new-branch
+
+# 9. Undo changes (examples)
+git checkout -- filename        # discard changes in a file
+git reset HEAD filename         # unstage a file
+git reset --hard               # discard all uncommitted changes
+
+# 10. Best practices
+- Use git status often to track changes
+- Commit frequently with meaningful messages
+- Experiment with branches for features or tests
+- Practice merging and resolving conflicts locally
