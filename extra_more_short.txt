@@ -1,0 +1,26 @@
+REGRESSION_MODEL - Annotated Cheat Sheet
+
+# 1. Create virtual environment (isolates project dependencies)
+python -m venv .venv
+
+# 2. Activate virtual environment
+source .venv/bin/activate       (macOS/Linux)
+.venv\Scripts\activate          (Windows)
+
+# 3. Upgrade pip and packaging tools (ensure latest version)
+python -m pip install --upgrade pip setuptools wheel
+
+# 4. Install all dependencies (runtime + development)
+python -m pip install .[dev]
+
+# 5. Update dependencies after modifying requirements
+python -m pip install --upgrade .[dev]
+
+# 6. Run Ruff linter to check code
+python -m ruff check .
+
+# 7. Automatically fix issues found by Ruff
+python -m ruff check . --fix
+
+# 8. Install your package locally (makes it importable in the venv)
+python -m pip install .[dev]

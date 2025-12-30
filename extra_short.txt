@@ -1,0 +1,73 @@
+REGRESSION_MODEL - Quick Reference
+
+Project Structure:
+ElasticNetCV_demo/
+├── src/my_package/
+├── .venv/
+├── requirements.txt
+├── requirements-dev.txt
+├── setup.py
+├── pyproject.toml
+└── README.txt
+
+Step 1: Create and Activate Virtual Environment
+python -m venv .venv
+source .venv/bin/activate      (macOS/Linux)
+.venv\Scripts\activate         (Windows)
+python -m pip install --upgrade pip setuptools wheel
+
+Step 2: Install Dependencies
+python -m pip install .[dev]
+# installs runtime and dev dependencies from requirements.txt and requirements-dev.txt
+
+Step 3: Project Packaging (setup.py)
+
+from setuptools import setup, find_packages
+
+def read_requirements(filename: str):
+    with open(filename, encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
+
+setup(
+    name="REGRESSION_MODEL",
+    version="0.0.1",
+    description="Regression model using ElasticNetCV",
+    author="RAJVEER FANDAN",
+    author_email="dummy@example.com",
+    packages=find_packages(),
+    install_requires=read_requirements("requirements.txt"),
+    extras_require={"dev": read_requirements("requirements-dev.txt")},
+    python_requires=">=3.8",
+)
+
+Install locally:
+python -m pip install .[dev]
+
+Step 4: Ruff Configuration (pyproject.toml)
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+Step 5: Quick Commands
+
+# Activate venv
+source .venv/bin/activate
+
+# Install or update dependencies
+python -m pip install .[dev]
+python -m pip install --upgrade .[dev]
+
+# Run Ruff linter
+python -m ruff check . --fix
+
+Step 6: Best Practices
+- Always activate your virtual environment before running commands
+- Keep requirements.txt and requirements-dev.txt updated
+- Keep imports at the top of all Python files
+- Use ruff check . --fix regularly to maintain clean code

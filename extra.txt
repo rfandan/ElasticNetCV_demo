@@ -1,0 +1,111 @@
+REGRESSION_MODEL - Complete Setup and Workflow
+
+This text contains all steps for setting up, managing, and developing the Regression Model project using ElasticNetCV, including environment setup, dependencies, and packaging.
+
+Project Structure (Recommended):
+
+ElasticNetCV_demo/
+├── src/
+│   └── my_package/
+│       └── __init__.py
+├── .venv/                       (Virtual environment folder)
+├── requirements.txt             (Runtime dependencies like numpy, pandas)
+├── requirements-dev.txt         (Development dependencies like Ruff, pytest, mypy)
+├── setup.py                     (Project packaging & install script)
+├── pyproject.toml               (Ruff configuration)
+└── README.txt                   (This reference file)
+
+- Source code should go inside src/my_package/
+- .venv contains the virtual environment
+- requirements.txt contains runtime dependencies
+- requirements-dev.txt contains development dependencies (Ruff, pytest, mypy)
+- setup.py handles installation of dependencies and packaging
+- pyproject.toml configures Ruff linter
+
+Step 1: Create and Activate Virtual Environment
+
+1. Create the virtual environment (only once):
+   python -m venv .venv
+
+2. Activate the virtual environment:
+   source .venv/bin/activate      (macOS/Linux)
+   .venv\Scripts\activate         (Windows)
+
+3. Upgrade pip and packaging tools:
+   python -m pip install --upgrade pip setuptools wheel
+
+Note: Using a virtual environment isolates project dependencies from the system Python.
+
+Step 2: Install Project Dependencies
+
+Install both runtime and development dependencies:
+   python -m pip install .[dev]
+
+Explanation:
+- install_requires from requirements.txt provides runtime dependencies.
+- extras_require["dev"] from requirements-dev.txt provides development dependencies like Ruff, pytest, mypy.
+- Using "python -m pip" ensures the correct Python interpreter is used.
+
+Step 3: Project Packaging (setup.py)
+
+The setup.py file:
+
+from setuptools import setup, find_packages
+
+def read_requirements(filename: str):
+    with open(filename, encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
+
+setup(
+    name="REGRESSION_MODEL",
+    version="0.0.1",
+    description="Regression model using ElasticNetCV",
+    author="RAJVEER FANDAN",
+    author_email="dummy@example.com",
+    packages=find_packages(),
+    install_requires=read_requirements("requirements.txt"),
+    extras_require={"dev": read_requirements("requirements-dev.txt")},
+    python_requires=">=3.8",
+)
+
+Install the package locally:
+   python -m pip install .[dev]
+
+This installs both runtime and development dependencies, making the project ready for coding and development.
+
+Step 4: Ruff Configuration (pyproject.toml)
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+Explanation:
+- Configures Ruff rules such as maximum line length, selected checks, ignored warnings, and Python version.
+
+Step 5: Quick Commands Reference
+
+- Activate virtual environment:
+   source .venv/bin/activate
+
+- Install dependencies:
+   python -m pip install .[dev]
+
+- Reinstall after updating requirements:
+   python -m pip install --upgrade .[dev]
+
+- Optional: Run Ruff linter from terminal:
+   python -m ruff check . --fix
+
+Step 6: Best Practices
+
+- Always activate your virtual environment before running commands.
+- Keep requirements.txt and requirements-dev.txt updated as dependencies change.
+- Use python -m pip install .[dev] whenever installing or updating dependencies.
+- Keep imports at the top of all Python files to comply with PEP8.
+- Run ruff check . --fix regularly to maintain clean code.
